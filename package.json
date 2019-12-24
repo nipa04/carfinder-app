@@ -2,7 +2,7 @@
   "name": "carfinder-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://nipa04.github.io/Car-Finder/",
+  "homepage": "https://nipa04.github.io/carfinder-app/",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "express": "^4.17.1",
