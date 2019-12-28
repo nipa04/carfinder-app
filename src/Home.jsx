@@ -83,7 +83,7 @@ class Home extends Component {
 
   componentDidMount() {
     fetch(
-      "http://marketcheck-prod.apigee.net/v1/search?api_key=" +
+      "https://marketcheck-prod.apigee.net/v1/search?api_key=" +
         ApiKey +
         "&radius=10&start=0&rows=0&facets=year%7C0%7C50,make%7C0%7C100,city%7C0%7C100"
     )
@@ -114,7 +114,7 @@ class Home extends Component {
       let year = this.state.selectedYear;
 
       http: fetch(
-        "http://marketcheck-prod.apigee.net/v1/search?api_key=" +
+        "https://marketcheck-prod.apigee.net/v1/search?api_key=" +
           ApiKey +
           "&year=" +
           year +
@@ -198,7 +198,6 @@ class Home extends Component {
                   >
                     Search
                   </Button>
-                  
                 </InputGroupAddon>
               </InputGroup>
             </Col>
