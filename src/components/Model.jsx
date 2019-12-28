@@ -23,7 +23,7 @@ class Model extends Component {
     if (this.props.maker !== prevProps.maker) {
       if (this.props.maker) {
         fetch(
-          "http://marketcheck-prod.apigee.net/v1/search?api_key=" +
+          "https://marketcheck-prod.apigee.net/v1/search?api_key=" +
             ApiKey +
             "&radius=10&start=0&rows=0&make=" +
             this.props.maker +
