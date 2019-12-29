@@ -1,5 +1,7 @@
-# Cover-Tech-Challenge .        
+
 [![Build Status](https://travis-ci.com/nipa04/carfinder-app.svg?branch=master)](https://travis-ci.com/nipa04/carfinder-app)
+
+# Cover-Tech-Challenge                        
 
 Using the​ ​`Marketcheck Cars Search API​`, build something that can accepts car manufacturer, model and year and searches nearby dealerships for local inventory (within 10 km radius) closest to the user and be able to switch cities (ie, select Montrel over Toronto). Bonus points for calculating average price for the user entered and similar vehicles.
 
