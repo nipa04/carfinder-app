@@ -60,3 +60,5 @@ Using the​ ​`Marketcheck Cars Search API​`, build something that can accep
 ### Screenshots
 
 - some of the screenshots of how the app is looking in localhost:3000 is given in this folder.
+
+[![Build Status](https://travis-ci.com/nipa04/carfinder-app.svg?branch=master)](https://travis-ci.com/nipa04/carfinder-app)
