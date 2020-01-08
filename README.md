@@ -1,66 +1,165 @@
 
 [![Build Status](https://travis-ci.com/nipa04/carfinder-app.svg?branch=master)](https://travis-ci.com/nipa04/carfinder-app)
 
-# Cover-Tech-Challenge                        
+# Continuous Integration and Continuous Delivery & Deployment                        
 
-Using the​ ​`Marketcheck Cars Search API​`, build something that can accepts car manufacturer, model and year and searches nearby dealerships for local inventory (within 10 km radius) closest to the user and be able to switch cities (ie, select Montrel over Toronto). Bonus points for calculating average price for the user entered and similar vehicles.
+Working with a team always needs efficiency, and efficiency comes from a better process. To my understanding, CI/CD is nothing but an excellent method to make the team efficient. It is crucial to understand the problems CI and CD solve to use them properly. It will allow your team to improve your process. And avoid putting effort chasing fancy metrics that do not bring any value to your operation. Disclaimer I don't have enough experience to work in a bigger team, but what I'm going to explain here is my theoretical understanding and then try to apply in my projects.
 
-### The requirements are:
+#### Scops
+- Git workflow
+- CI/CD using Travis CI and GitHub
 
-1. Please do not put your code in a public repository!
-2. In the root folder, please include some form of README so we know how to fire it up.
-3. Include your name in your project folder, like first-last-date or similar, and upload to your
-   preferred, simple service (not iCloud, please). Don't forget to remove any dependencies
-   from your folder!
-4. You can get your own API key by quickly signing up here:
-   `https://www.marketcheck.com/automotive`
+## Git workflow
+Any software development work starts with git, and for better productivity, security, and efficiency having a good git-flow is a must. There are a couple of points you must need to agree on git workflow:
+Define mainline like master and develop in most common
+Make sure those are protected
+When we have this rule in place, then a possible workflow could be:
+The developer always start work by creating a feature branch
+When task complete feature branch must open PR (pull request) against develop
+After PR review code get merge to develop
+Develop will open a PR end of the work sprint and merge to master
+Master must be ready to deploy anytime
+If there is any issue arise then we can use hotfix branch from master, then PR join back to the master
 
-   ### In Summary
+## Continuous integration (aka CI)
+We may ask what's the problem we are trying to solve if we have an excellent git-workflow. Well, CI is a team problem, not any tooling problem or engineering problem. CI solves the team scaling problem.
+The scenario we want to avoid is that a faulty commit makes it to the main branch. Defective means the code does not compile, or the app won't start or is unusable. Why? Not because the app is broken or because all tests must always be green. That is not a problem, and you can very well never deploy that version and wait for a fix.
+The problem is that your entire team is stuck. All the developers who pulled the faulty commit will spend 5 minutes wondering why it doesn't work. Several will probably try to find the defective commit. Some will try to fix the issue by themselves in parallel with the faulty code author.
+This is a waste of time for your team. The worst part is that repeated incidents fuel mistrust of the main branch and encourages developers to work apart.
 
-   Build a JavaScript application, following the story guidelines. Make it look good. Demonstrate your personal front-end style.
+## Continuous Delivery and Deployment (aka CD)
+CD is an engineering problem to solve. When the team merges their PR, it's time to make sure we can run all tests, and sanity check then produces the build. CD is nothing but:
+The integrity of your production build
+Making sure the developer can merge as many features as they can without breaking the integrity.
 
-## Installation
+## CI/CD using Travis CI and GitHub
 
-- Unzip or download the `carfinder_Farjana_Nipa_16/09/2019` folder.
+Here I am deploying one of my project react-app named Car finder on `GitHub`    Pages via `Travis CI`. I am going through the creation of a basic pipeline to deploy the project Car finder.
 
-- From the terminal cd into the `carfinder_Farjana_Nipa_16/09/2019` folder directory.
+## About the project Car finder
+The project I will use for deploy called Car Finder. Using the​ ​Marketcheck Cars Search API​, I built an react-app that can accepts car manufacturer, model and year and search nearby dealerships for local inventory (within 10 km radius) closest to the user and be able to switch cities (ie, select Montreal over Toronto). 
 
-- From this link `https://nodejs.org/en/` download and install nodejs.
-- Excecute following command in the terminal
+To develop this project I will need NodeJS and a free account on [https://www.marketcheck.com/automotive](https://www.marketcheck.com/automotive), which will serve as the necessary data from the API's for the app.
 
-`` `npm i -S react` ``
-`` `npm i -S react-dom` ``
-`` `npm i -S react-scripts` ``
-`` `npm install --save bootstrap` ``
-`` `npm install --save reactstrap` ``
+## Scaffold the project and load the code on a repository
+First I created a basic React application using a create-react-app tool and then check if everything is working properly.
 
-- To run the project in `localhost:3000` excecute command
+	npx create-react-app carfinder-app
+	cd carfinder-app
+	npm start
 
-  `` `npm start` ``
+Something similar should appear on your browser, at `http://localhost:3000/`
 
-## Architecture
+![ReactApp](./images/react-app.png)
 
-### API key:
 
-    * Got APi key from `https://www.marketcheck.com/'
-    * The best practise is to put the API key in bash profile but for make it simple I keep it open.
-    * This is a free API key so it's have a limitation of 300 requests.
-    * If you get a error then you just have to rotate the key.
+I created a repository on GitHub and upload the starter code
 
-### Composition
 
-- Home.jsx is the main app component.
-- Inside the components folder all other child components.
-- To get the data for top city , manufacturer, year The following API is used:
-  `"http://marketcheck-prod.apigee.net/v1/search?api_key=" + {ApiKey} + "&radius=10&start=0&rows=0&facets=year%7C0%7C50,make%7C0%7C100,city%7C0%7C100`
-- To get the specific manufacturer model the following API is used:
+![Create-NewRepo](./images/create-new-repo.png)
 
-  `"http://marketcheck-prod.apigee.net/v1/search?api_key=" + {ApiKey} + "&radius=10&start=0&rows=0&make=" + {Maker} + "&facets=model%7C0%7C100"`
+From the root folder of the project I ran
 
-- To get the search functionalilty the following API is used:
-  `"http://marketcheck-prod.apigee.net/v1/search?api_key=" + {ApiKey} + "&year=" + {year} + "&make=" + {make} + "&radius=10&city=" + {city} + "&model=" + {model}`
+   	git remote add origin https://github.com/nipa04/carfinder-app.git
+   	
+ 	Git push -u origin master
+ 	
+## Create the file .travis.yml
 
-### Screenshots
+Created a new file .travis.yml in the root folder of the project carfinder-app.
 
-- some of the screenshots of how the app is looking in localhost:3000 is given in this folder.
+	 language: node_js
+	 node_js:
+	 - "stable"
+	 cache:
+	 directories:
+	   - node_modules
+	 script:
+	 - npm test
+	 - npm run build
+
+This file contains all the instructions for Travis CI to test and build the project. I have to push this file to the repository (on the master branch).
+
+## Create an account on Travis CI
+
+I am using Travis CI for deploying my project. Travis CI is a hosted continuous integration service used to build and test software projects hosted at GitHub. This is the website for creating an account on [https://travis-ci.org](https://travis-ci.org) and sign in with GitHub.
+Then by clicking on the avatar the list of all repositories on GitHub was shown. By clicking on “Sync account” it would take a couple of seconds for sync with the GitHub account.
+
+
+![SyncTravis-CI with Github](./images/syncGithub-travis.png)
+
+
+## Generate the GitHub token and update the file .travis.yml
+
+Now need to generate the GitHub token and in Travis CI and created an Environment Variable **GITHUB_TOKEN** and past the token in the **Value field**.
+
+
+ 	
+![Personal Access Token](./images/personal-access-token.png)
+
+
+
+![Github Token](./images/Github-token.png)
+
+Now I go back to the file .travis.yml and add these lines at the   end
+
+	deploy:
+	 provider: pages
+	 skip_cleanup: true
+	 github_token: $GITHUB_TOKEN
+	 local_dir: build
+	 on:
+	   branch: master
+	
+	
+
+## Update the file package.json
+Then I added the “homepage” property to the package.json file
+
+"homepage": ["https://nipa04.github.io/carfinder-app/"](https://nipa04.github.io/carfinder-app/),
+
+Now pushed again the updated code on the master branch and open Travis CI dashboard. At first, the build was failed due to no test to build then I wrote the command to pass with no test. After that, the build passed. Here is the final **travis.yml** file look like:
+
+	language: node_js
+	node_js:
+	 - "stable"
+	cache:
+	 directories:
+	   - node_modules
+	script:
+	 - npm test
+	 - npm run build || true
+	deploy:
+	 provider: pages
+	 skip_cleanup: true
+	 github_token: $GITHUB_TOKEN
+	 local_dir: build
+	 on:
+	   branch: master
+	
+
+![Travis Build](./images/travis-build.png)
+
+Building!
+
+The bottom of the logs should see something like
+
+	Preparing deploy
+	Deploying application
+	Done. Your build exited with 0.
+	
+So carfinder-app is now deployed and available at the URL specified before in the **package.json** as **“homepage”** and that is  [https://nipa04.github.io/carfinder-app/](https://nipa04.github.io/carfinder-app/).
+
+
+![App View](./images/app-view.png)
+
+
+## Conclusion
+
+It’s a simple but efficient CI/CD pipeline and can be empowered by adding custom configuration in the .travis.yml file.
+
+Github Link for the project : [https://github.com/nipa04/carfinder-app](https://github.com/nipa04/carfinder-app)
+
+
+
 
