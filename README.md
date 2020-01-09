@@ -33,16 +33,15 @@ The integrity of your production build
 Making sure the developer can merge as many features as they can without breaking the integrity.
 
 ## CI/CD using Travis CI and GitHub
+Here I am deploying one of my project React-App named Car finder on `GitHub`    Pages via `Travis CI`. I am going through the creation of a primary pipeline to deploy the project Car finder.
 
-Here I am deploying one of my project react-app named Car finder on `GitHub`    Pages via `Travis CI`. I am going through the creation of a basic pipeline to deploy the project Car finder.
+### About the project Car finder
+This project is using open API to search Cars!  Using the​ ​Marketcheck Cars Search API​, I built a react-app that uses a different filter. Like I can accepts car manufacturer, model, and year and search nearby dealerships for local inventory (within 10 km radius) closest to the user and be able to switch cities (i.e., select Montreal over Toronto). 
 
-## About the project Car finder
-The project I will use for deploy called Car Finder. Using the​ ​Marketcheck Cars Search API​, I built an react-app that can accepts car manufacturer, model and year and search nearby dealerships for local inventory (within 10 km radius) closest to the user and be able to switch cities (ie, select Montreal over Toronto). 
+To develop this project, I will need NodeJS and a free account on [https://www.marketcheck.com/automotive](https://www.marketcheck.com/automotive), which will serve as the necessary data from the API for the app.
 
-To develop this project I will need NodeJS and a free account on [https://www.marketcheck.com/automotive](https://www.marketcheck.com/automotive), which will serve as the necessary data from the API's for the app.
-
-## Scaffold the project and load the code on a repository
-First I created a basic React application using a create-react-app tool and then check if everything is working properly.
+### Scaffold the project and load the code on a repository
+First, I created a basic React application using a create-react-app tool and then check if everything is working correctly.
 
 	npx create-react-app carfinder-app
 	cd carfinder-app
@@ -53,22 +52,21 @@ Something similar should appear on your browser, at `http://localhost:3000/`
 ![ReactApp](./images/react-app.png)
 
 
-I created a repository on GitHub and upload the starter code
-
+I created a repository on GitHub and uploaded the starter code
 
 ![Create-NewRepo](./images/create-new-repo.png)
 
 From the root folder of the project I ran
 
-   	git remote add origin https://github.com/nipa04/carfinder-app.git
-   	
- 	Git push -u origin master
+
+		git remote add origin https://github.com/nipa04/carfinder-app.git
+ 		git push -u origin master
  	
-## Create the file .travis.yml
+### Create the file .travis.yml
 
 Created a new file .travis.yml in the root folder of the project carfinder-app.
 
-	 language: node_js
+	language: node_js
 	 node_js:
 	 - "stable"
 	 cache:
@@ -80,16 +78,15 @@ Created a new file .travis.yml in the root folder of the project carfinder-app.
 
 This file contains all the instructions for Travis CI to test and build the project. I have to push this file to the repository (on the master branch).
 
-## Create an account on Travis CI
-
-I am using Travis CI for deploying my project. Travis CI is a hosted continuous integration service used to build and test software projects hosted at GitHub. This is the website for creating an account on [https://travis-ci.org](https://travis-ci.org) and sign in with GitHub.
-Then by clicking on the avatar the list of all repositories on GitHub was shown. By clicking on “Sync account” it would take a couple of seconds for sync with the GitHub account.
+### Create an account on Travis CI
+I am using Travis CI for deploying my project. Travis CI is a hosted continuous integration service (managed service) used to build and test software projects hosted at GitHub. Here is the site [https://travis-ci.org](https://travis-ci.org), and you can sign in with GitHub.
+Then by clicking on the avatar, the list of all repositories on GitHub was shown. By clicking on the “Sync account,” it would take a couple of seconds for sync with the GitHub account.
 
 
 ![SyncTravis-CI with Github](./images/syncGithub-travis.png)
 
 
-## Generate the GitHub token and update the file .travis.yml
+### Generate the GitHub token and update the file .travis.yml
 
 Now need to generate the GitHub token and in Travis CI and created an Environment Variable **GITHUB_TOKEN** and past the token in the **Value field**.
 
@@ -113,10 +110,10 @@ Now I go back to the file .travis.yml and add these lines at the   end
 	
 	
 
-## Update the file package.json
-Then I added the “homepage” property to the package.json file
+### Update the file package.json
+Then I added the `homepage` property to the package.json file
 
-"homepage": ["https://nipa04.github.io/carfinder-app/"](https://nipa04.github.io/carfinder-app/),
+	homepage: "https://nipa04.github.io/carfinder-app/",
 
 Now pushed again the updated code on the master branch and open Travis CI dashboard. At first, the build was failed due to no test to build then I wrote the command to pass with no test. After that, the build passed. Here is the final **travis.yml** file look like:
 
