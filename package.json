@@ -14,7 +14,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --passWithNoTests",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "mocha": "^6.2.2",
+    "react-test-renderer": "^16.13.0",
     "should": "^13.2.3",
     "supertest": "^4.0.2"
   }
