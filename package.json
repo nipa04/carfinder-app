@@ -5,7 +5,7 @@
   "homepage": "https://nipa04.github.io/carfinder-app/",
   "dependencies": {
     "bootstrap": "^4.3.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.1",
